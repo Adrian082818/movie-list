@@ -1,0 +1,13 @@
+<h1>Movie Collection<%=session[:username]%></h1>
+
+<%@movies.each do |movie|%>
+<%=movie.title%>
+<%=movie.rating%>
+<%=movie.release_year%>
+<a href="/movies/<%=movie.id%>/edit">Change</a>
+
+<form method="post" action="/movies/<%=movie.id%>">
+<input type="hidden" id="hidden" name="_method" value="delete">
+<input type="submit" value="Delete">
+</form>
+<%end%>
