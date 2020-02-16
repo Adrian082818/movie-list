@@ -15,7 +15,7 @@ class MovieController < ApplicationController
     end 
 
     post '/movies' do 
-        @movies = Movie.create(title: params[:title], rating: params[:rating], release_year: params[:release_year])
+        @movies = Movie.create(title: params[:title], director: params[:director], rating: params[:rating], release_year: params[:release_year])
         if @movies.save
             redirect '/movies'
         else 
@@ -49,7 +49,7 @@ class MovieController < ApplicationController
         if logged_in?
             @movies = Movie.find_by(id: params[:id])
 
-            if @movies.update(title: params[:title], rating: params[:rating], release_year: params[:release_year])
+            if @movies.update(title: params[:title], director: params[:director], rating: params[:rating], release_year: params[:release_year])
                 redirect '/movies'
             else 
                 redirect "/movies/#{@movies.id}/edit"

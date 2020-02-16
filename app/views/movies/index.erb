@@ -2,6 +2,7 @@
 
 <%@movies.each do |movie|%>
 <%=movie.title%>
+<%=movie.director%>
 <%=movie.rating%>
 <%=movie.release_year%>
 <a href="/movies/<%=movie.id%>/edit">Change</a>
