@@ -6,7 +6,7 @@ class UserController < ApplicationController
     end 
 
     post '/signup' do 
-        @users = User.create(username: params[:username], password: params[:password])
+        @users = User.create(username: params[:username], email: params[:email], password: params[:password])
         if @users.save 
             redirect '/login'
         else 
@@ -20,8 +20,11 @@ class UserController < ApplicationController
 
     post '/login' do 
         login(params[:username], params[:password])
+        # user = User.find_by(email: params[:user][:email])
+        # if user && user.authenticate(params[:user][:password])
+        #     session[:user_id] = user.id
         redirect '/movies'
-    end 
+        end 
 
     get '/logout' do 
         logout 

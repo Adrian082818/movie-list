@@ -5,6 +5,9 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    enable :sessions
+    set :session_secret, "secret"
+    # SecureRandom.hex
   end
 
   get "/" do
@@ -20,7 +23,7 @@ class ApplicationController < Sinatra::Base
     def login(username, password)
       user = User.find_by(username: params[:username])
 
-      if user && user.authenticate(password)
+      if user && user.authenticate(params[:password])
         session[:username] = user.username
         session[:user_id] = user.id
       else 
