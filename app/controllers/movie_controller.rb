@@ -16,6 +16,7 @@ class MovieController < ApplicationController
 
     post '/movies' do 
         @movies = Movie.create(title: params[:title], director: params[:director], rating: params[:rating], genre: params[:genre], release_year: params[:release_year])
+        # @movies = current_user.movies.build(title: params[:title], director: params[:director], rating: params[:rating], genre: params[:genre], release_year: params[:release_year])
         if @movies.save
             redirect '/movies'
         else 
