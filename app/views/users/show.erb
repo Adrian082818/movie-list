@@ -1,9 +1,0 @@
-<h1>Username: <%=@users.username%></h1>
-<h2>Email: <%=@users.email%></h2>
-
-<p>Edit <a href="/users/<%=@users.id%>/edit"><%=@users.username%></a></p>
-
-<form method="post" action="/users/<%=@users.id%>">
-<input type="hidden" id="hidden" name="_method" value="delete">
-<input type="submit" value="Delete User">
-</form> 

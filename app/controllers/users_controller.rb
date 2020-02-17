@@ -1,71 +1,82 @@
 class UsersController < ApplicationController
 
 
-    get '/users' do 
-        # if logged_in?
-        #     @movies = current_user.movies 
-        #     erb :'movies/index'
-        # else 
-        #     redirect '/login'
-        # end 
-        @users = User.all 
-        erb :"/users/index"
-    end 
-
-    # post '/users' do 
-
+    # get '/users' do 
+    #     if logged_in?
+    #         @movies = current_user.movies 
+    #         erb :'movies/index'
+    #     else 
+    #         redirect '/login'
+    #     end 
     # end 
 
     get '/signup' do
-        erb :"/users/new"
+        erb :'/users/signup'
     end
     
       post '/signup' do
     
-        user = User.new(params["user"])
-    
-        if user.save
-          session[:user_id] = user.id
-          redirect to "/users"
-        else
-          @errors = user.errors.full_messages
-          erb :"/users/new"
-        end
-      end
-    
+        @user = User.new
+        @user.username = params[:username]
+        @user.password = params[:password]
+        # @user.save
+        # session[:user_id] = user.id
 
-      get '/users/:id' do
-        @users = User.find_by_id(params[:id])
-        erb :"/users/show"
-      end
-    
-      get '/users/:id/edit' do
-        @users = User.find_by_id(params[:id])
-        if @users == current_user
-          erb :"/users/edit"
+        if @user.save
+          redirect to '/login'
         else
-          redirect '/'
+          redirect to '/signup'
+          # @errors = user.errors.full_messages
+          # erb :"/users/new"
         end
       end
     
-      patch '/users/:id' do
-        @users = User.find_by_id(params[:id])
+      get '/login' do 
+        erb :'users/login'
+      end   
+
+      post '/login' do 
+        # login(params[:username], params[:password])
+        login(params[:username], params[:password])
+        redirect to '/movies'
+      end 
+
+      get '/logout' do 
+        logout 
+        redirect to '/login'
+      end 
+      # get '/users/:id' do
+      #   @users = User.find_by_id(params[:id])
+      #   erb :"/users/show"
+      # end
     
-        if @users.update(params[:user])
-          redirect to "/users/#{@users.id}"
-        else
-          erb :"/users/edit"
-        end
-      end
+      # get '/users/:id/edit' do
+      #   @users = User.find_by_id(params[:id])
+      #   if @users == current_user
+      #     erb :"/users/edit"
+      #   else
+      #     redirect '/'
+      #   end
+      # end
+    
+      # patch '/users/:id' do
+      #   @users = User.find_by_id(params[:id])
+    
+      #   if @users.update(params[:user])
+      #     redirect to "/users/#{@users.id}"
+      #   else
+      #     erb :"/users/edit"
+      #   end
+      # end
     
     
-      delete '/users/:id' do
-        @users = User.find_by_id(params[:id])
-        if @users
-          @users.destroy
-        end
-        redirect to "/signup"
-      end
+      # delete '/users/:id' do
+      #   @users = User.find_by_id(params[:id])
+      #   if @users
+      #     @users.destroy
+      #   end
+      #   redirect to "/signup"
+      # end
     
 
 
@@ -132,6 +143,5 @@ class UsersController < ApplicationController
     #         redirect '/login'
     #     end 
     # end 
-
 
 end 
