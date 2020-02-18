@@ -1,11 +1,10 @@
-<h1>Title: <%=@movies.title%></h1>
-<h2>Director: <%=@movies.director%></h2>
-<h3>Rating: <%=@movies.rating%></h3>
-<h3>Genre: <%=@movies.genre%></h3>
-<h3>Release Year: <%=@movies.release_year%></h3>
-<p>Edit <a href="/movies/<%=@movies.id%>/edit"></a></p>
+<h1><%=@movies.title%></h1>
+<%if current_user == @users%>
+<p>Edit <a href="/users/<%=@movies.id%>/edit"><%=@movies.title%></a></p>
 
-<form method="post" action="/users/<%=@users.id%>">
-<input type="hidden" id="hidden" name="_method" value="delete">
-<input type="submit" value="Delete User">
-</form> 
+<form method="post" action="/users/<%=@movies.id%>">
+<input type="hidden" name="_method" value="delete">
+
+<input type="submit" value="delete">
+</form>
+<%end%>

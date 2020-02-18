@@ -1,17 +1,11 @@
-<h1>Movie Collection<%=session[:username]%></h1>
-<a href="/movies/new" role="button">New Movie </a>
-<a href="/logout" role="button">Logout</a>
-
+<h1>Movies<%=session[:username]%></h1>
 <%@movies.each do |movie|%>
-<a href="/movies/<%=movie.id%>"></a>
-<%=movie.title%>
-<%=movie.director%>
-<%=movie.rating%>
-<%=movie.genre%>
-<%=movie.release_year%>
-<a href="/movies/<%=movie.id%>/edit">Edit Movie</a>
-<form method="POST" action="/movies/<%=movie.id%>">
-<input type="hidden" id="hidden" name="_method" value="DELETE">
+<a href="/movies/<%=movie.id%>"><%=movie.title%></a>
+<a href="/movies/<%=movie.id%>"><%=movie.director%></a>
+<a href="/movies/<%=movie.id%>"><%=movie.genre%></a>
+
+<form method="post" action="/movies/<%=movie.id%>">
+<input type="hidden" id="hidden" name="_method" value="delete">
 <input type="submit" value="Delete">
 </form>
 <%end%>
