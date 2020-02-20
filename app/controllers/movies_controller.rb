@@ -1,31 +1,26 @@
 class MoviesController < ApplicationController
 
     get '/movies' do 
+        # @movies = Movie.all
+        # @movies = current_user.movies 
+        if logged_in?
         @movies = Movie.all
-        # if logged_in?
-        #     @movies = current_user.movies 
+        # if @movies
             erb :'movies/index'
-        # else 
-        #     redirect '/login'
-        # end 
+        else 
+            redirect '/login'
+        end 
     end
 
-    get '/movies/new' do 
-        erb :'movies/new'
-    end 
-
     post '/movies' do 
-        @m = current_user.movies.build(title: params[:title], director: params[:director], genre: params[:genre])
-        if @m.save 
+        # @movies = current_user.movies.create(title: params[:title], director: params[:director], genre: params[:genre])
+        @movies = Movie.create(title: params[:title], director: params[:director], genre: params[:genre])
+        if @movies.save 
             redirect '/movies'
         else 
             redirect '/movies/new'
         end 
     end 
-
-    # get '/movies/show' do 
-
-    # end 
 
     get '/movies/:id/edit' do 
         if logged_in?
@@ -47,7 +42,8 @@ class MoviesController < ApplicationController
             else 
                 redirect '/movies'
             end 
-        else redirect '/login'
+         else redirect '/login'
+        end 
     end 
 
     patch '/movies/:id' do 
@@ -64,7 +60,8 @@ class MoviesController < ApplicationController
     end
 
     get '/movies/:id' do 
-        @movies = Movie.find_by(id: params[:id])
+        @movies = Movie.find_by_id(params[:id])
+        # redirect '/movies/show'
         if @movies
             erb :'/movies/show'
         else 
@@ -72,4 +69,4 @@ class MoviesController < ApplicationController
         end 
     end 
 end
-end 
+ 
