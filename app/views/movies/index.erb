@@ -1,5 +1,5 @@
 <h1>Movies<%=session[:username]%></h1>
-<%@movies.each do |movie|%>
+<%Movie.all.each do |movie|%>
 <a href="/movies/<%=movie.id%>"><%=movie.title%></a>
 <a href="/movies/<%=movie.id%>"><%=movie.director%></a>
 <a href="/movies/<%=movie.id%>"><%=movie.genre%></a>

@@ -10,16 +10,25 @@ class UsersController < ApplicationController
         end 
 
         post '/signup' do 
-            @user = User.new(params[:user])
+            @user = User.new(params["user"])
             @user.username = params[:username]
             @user.password = params[:password]
             if @user.save
-                redirect "/login"
+                redirect '/login'
             else 
                 # @errors = user.errors.full_messages
-                redirect :"/users/signup"
+                redirect '/users/signup'
             end 
         end
+
+        get '/users/:id' do 
+            @users = User.find_by(id: params[:id]) 
+            if @users 
+                erb :'/movies/new'
+            else 
+            redirect '/movies/show'
+            end 
+        end 
 
         get '/login' do 
             erb :"/users/login"

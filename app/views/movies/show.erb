@@ -1,6 +1,8 @@
 <h1><%=@movies.title%></h1>
 <%if current_user == @users%>
 <p>Edit <a href="/users/<%=@movies.id%>/edit"><%=@movies.title%></a></p>
+<p> <a href="/users/<%=@movies.id%>/edit"><%=@movies.director%></p>
+ <p><a href="/users/<%=@movies.id%>/edit"><%=@movies.genre%></p>
 
 <form method="post" action="/users/<%=@movies.id%>">
 <input type="hidden" name="_method" value="delete">

@@ -23,6 +23,10 @@ class MoviesController < ApplicationController
         end 
     end 
 
+    # get '/movies/show' do 
+
+    # end 
+
     get '/movies/:id/edit' do 
         if logged_in?
             @movies = Movie.find_by(id: params[:id])
